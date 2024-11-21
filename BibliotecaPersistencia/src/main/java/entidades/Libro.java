@@ -9,27 +9,40 @@ package entidades;
  * @author caarl
  */
 public class Libro {
-    private String id;
+    private int id;
     private String titulo;
     private String autor;
     private boolean disponible;
     private ReseñaLibro reseña;
 
-    public Libro(String id, String titulo, String autor) {
+    public Libro(int id, String titulo, String autor) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.disponible = true;
     }
 
+    public Libro(String titulo, String autor) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.disponible = true;
+    }
+
+    public Libro(int id) {
+        this.id = id;
+    }
+    
+    
+    
+
     public Libro() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

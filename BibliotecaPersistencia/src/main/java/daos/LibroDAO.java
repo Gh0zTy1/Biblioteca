@@ -13,10 +13,10 @@ import java.util.List;
  */
 public interface LibroDAO {
    Libro guardar(Libro libro);
-    Libro buscarPorId(String id);
+    Libro buscarPorId(int id);
     List<Libro> buscarPorTitulo(String titulo);
     List<Libro> buscarPorAutor(String autor);
     List<Libro> buscarTodos();
-    void eliminar(String id);
+    void eliminar(int id);
     void actualizar(Libro libro); 
 }

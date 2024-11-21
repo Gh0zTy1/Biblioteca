@@ -23,8 +23,9 @@ public class LibroDAOTest {
 
     @Before
     public void setUp() {
-        libroDAO = new ILibroDAO();
-        libroEjemplo = new Libro("L001", "Don Quijote", "Miguel de Cervantes");
+        libroDAO = ILibroDAO.getInstancia();
+        libroDAO.buscarTodos().forEach(libro -> libroDAO.eliminar(libro.getId())); // Limpia todos los libros
+        libroEjemplo = new Libro(1, "Don Quijote", "Miguel de Cervantes");
     }
 
     @Test
@@ -41,7 +42,7 @@ public class LibroDAOTest {
     public void testBuscarPorId() {
         libroDAO.guardar(libroEjemplo);
         
-        Libro libroEncontrado = libroDAO.buscarPorId("L001");
+        Libro libroEncontrado = libroDAO.buscarPorId(1);
         
         assertNotNull("El libro debe ser encontrado", libroEncontrado);
         assertEquals("El título del libro debe coincidir", "Don Quijote", libroEncontrado.getTitulo());
@@ -49,14 +50,14 @@ public class LibroDAOTest {
 
     @Test
     public void testBuscarPorIdNoExistente() {
-        Libro libroNoExistente = libroDAO.buscarPorId("L999");
+        Libro libroNoExistente = libroDAO.buscarPorId(999);
         assertNull("Debe retornar null para un ID no existente", libroNoExistente);
     }
 
     @Test
     public void testBuscarPorTitulo() {
         libroDAO.guardar(libroEjemplo);
-        libroDAO.guardar(new Libro("L002", "Don Quijote Parte II", "Miguel de Cervantes"));
+        libroDAO.guardar(new Libro(2, "Don Quijote Parte II", "Miguel de Cervantes"));
         
         List<Libro> librosEncontrados = libroDAO.buscarPorTitulo("Don Quijote");
         
@@ -82,23 +83,23 @@ public class LibroDAOTest {
         libroEjemplo.setTitulo("Don Quijote de la Mancha");
         libroDAO.actualizar(libroEjemplo);
         
-        Libro libroActualizado = libroDAO.buscarPorId("L001");
+        Libro libroActualizado = libroDAO.buscarPorId(1);
         assertEquals("El título debe estar actualizado", "Don Quijote de la Mancha", libroActualizado.getTitulo());
     }
 
     @Test
     public void testEliminarLibro() {
         libroDAO.guardar(libroEjemplo);
-        libroDAO.eliminar("L001");
+        libroDAO.eliminar(1);
         
-        Libro libroEliminado = libroDAO.buscarPorId("L001");
+        Libro libroEliminado = libroDAO.buscarPorId(1);
         assertNull("El libro debe haber sido eliminado", libroEliminado);
     }
 
     @Test
     public void testBuscarTodos() {
         libroDAO.guardar(libroEjemplo);
-        libroDAO.guardar(new Libro("L002", "Cien años de soledad", "Gabriel García Márquez"));
+        libroDAO.guardar(new Libro(2, "Cien años de soledad", "Gabriel García Márquez"));
         
         List<Libro> todosLosLibros = libroDAO.buscarTodos();
         

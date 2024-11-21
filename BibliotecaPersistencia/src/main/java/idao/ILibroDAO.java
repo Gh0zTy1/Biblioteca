@@ -15,21 +15,41 @@ import java.util.stream.Collectors;
  * @author caarl
  */
 public class ILibroDAO implements LibroDAO {
+    private static ILibroDAO instancia; // Instancia única
     private List<Libro> libros = new ArrayList<>();
+    
 
+    private ILibroDAO() {
+    } // Constructor privado para evitar instanciación directa
+    
+    public static ILibroDAO getInstancia() {
+        if (instancia == null) {
+            instancia = new ILibroDAO();
+        }
+        return instancia;
+    }
+    
     @Override
     public Libro guardar(Libro libro) {
+        int nuevoId = libros.isEmpty() ? 1 : libros.get(libros.size() - 1).getId() + 1;
+        libro.setId(nuevoId); // Asigna el nuevo ID
         libros.add(libro);
         return libro;
     }
 
     @Override
-    public Libro buscarPorId(String id) {
+    public Libro buscarPorId(int id) {
         return libros.stream()
-                    .filter(l -> l.getId().equals(id))
+                    .filter(l -> l.getId() == (id))
                     .findFirst()
                     .orElse(null);
     }
+    
+    public List<Libro> buscarPorIdLista(int id) {
+    return libros.stream()
+                 .filter(l -> l.getId() == id) 
+                 .collect(Collectors.toList()); 
+}
 
     @Override
     public List<Libro> buscarPorTitulo(String titulo) {
@@ -51,15 +71,15 @@ public class ILibroDAO implements LibroDAO {
     }
 
     @Override
-    public void eliminar(String id) {
-        libros.removeIf(l -> l.getId().equals(id));
+    public void eliminar(int id) {
+        libros.removeIf(l -> l.getId() == (id));
     }
 
     @Override
     public void actualizar(Libro libro) {
         int indice = -1;
         for (int i = 0; i < libros.size(); i++) {
-            if (libros.get(i).getId().equals(libro.getId())) {
+            if (libros.get(i).getId() == (libro.getId())) {
                 indice = i;
                 break;
             }
