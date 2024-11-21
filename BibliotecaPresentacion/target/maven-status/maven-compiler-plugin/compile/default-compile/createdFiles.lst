@@ -2,6 +2,8 @@ Presentacion\DlgLibro$2.class
 Presentacion\FrmBiblioteca$15.class
 Presentacion\FrmBiblioteca$5.class
 Control\Control.class
+Presentacion\DlgUsuario$3.class
+Presentacion\DlgUsuario$1.class
 Control\Tabla.class
 Presentacion\FrmBiblioteca$20.class
 Presentacion\FrmBiblioteca$3.class
@@ -15,12 +17,17 @@ Presentacion\FrmBiblioteca$2.class
 Presentacion\FrmBiblioteca$8.class
 Presentacion\FrmBiblioteca$21.class
 Presentacion\FrmBiblioteca$19.class
+Presentacion\DlgUsuario$4.class
 Presentacion\FrmBiblioteca$11.class
+Control\ControlUsuarios.class
 Presentacion\FrmBiblioteca$16.class
+Presentacion\DlgUsuario.class
 Presentacion\FrmBiblioteca$6.class
 Presentacion\DlgLibro$1.class
 Presentacion\FrmBiblioteca$14.class
+Presentacion\DlgUsuario$2.class
 mx\itson\bibliotecapresentacion\BibliotecaPresentacion.class
+Presentacion\DlgUsuario$5.class
 Presentacion\FrmBiblioteca$12.class
 Presentacion\FrmBiblioteca$22.class
 Presentacion\FrmBiblioteca$1.class

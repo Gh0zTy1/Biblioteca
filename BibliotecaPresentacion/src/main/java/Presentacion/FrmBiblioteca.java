@@ -7,6 +7,7 @@ package Presentacion;
 
 
 import Control.Control;
+import Control.ControlUsuarios;
 import Control.Tabla;
 import idao.ILibroDAO;
 import java.awt.Dimension;
@@ -337,7 +338,13 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      * @param evt 
      */
     private void opcionMenuActualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuActualizarUsuarioActionPerformed
-
+// Actualiza el libro
+        if (controlUSU.actualizarUsuario(this)) {
+            // Obtiene la lista de libros
+            Tabla tablaLibros = controlUSU.getTablaUsuarios(this);
+            // Despliega la lista de libro
+            despliegaTabla(tablaLibros);
+        }
     }//GEN-LAST:event_opcionMenuActualizarUsuarioActionPerformed
     /**
      * 
@@ -381,11 +388,21 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     }//GEN-LAST:event_opcionMenuEliminarLibroActionPerformed
 
     private void opcionMenuAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAgregarUsuarioActionPerformed
-        
+         // Agrega el nuevo libro
+        if (controlUSU.agregarUsuario(this)) {
+            // Obtiene la lista de libros
+            Tabla tablaLibros = controlUSU.getTablaUsuarios(this);
+            // Despliega la lista de libros
+            despliegaTabla(tablaLibros);
+        } 
     }//GEN-LAST:event_opcionMenuAgregarUsuarioActionPerformed
 
     private void opcionMenuEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuEliminarUsuarioActionPerformed
-        
+        if (controlUSU.eliminarUsuario(this)) {
+            // Obtiene la lista de libros
+            Tabla tablaLibros = controlUSU.getTablaUsuarios(this);
+            despliegaTabla(tablaLibros); 
+        } 
     }//GEN-LAST:event_opcionMenuEliminarUsuarioActionPerformed
 
     private void opcionMenuPrestarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuPrestarLibroActionPerformed
@@ -546,6 +563,8 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     private javax.swing.JMenuItem opcionMenuSalir;
     private javax.swing.JLabel tituloTabla;
     // End of variables declaration//GEN-END:variables
+    
+    ControlUsuarios controlUSU = new ControlUsuarios();
     Control control = new Control();
     private javax.swing.JTable jtabla; 
     
