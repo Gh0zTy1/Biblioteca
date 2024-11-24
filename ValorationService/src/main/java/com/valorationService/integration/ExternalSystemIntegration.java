@@ -13,7 +13,7 @@ import valoration.Valorate;
 
 /**
  *
- * @author skevi
+ * @author CarlosDamian
  */
 public class ExternalSystemIntegration implements IValorateFCD{
 

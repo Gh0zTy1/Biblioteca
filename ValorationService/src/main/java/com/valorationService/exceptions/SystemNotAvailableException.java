@@ -6,7 +6,7 @@ package com.valorationService.exceptions;
 
 /**
  *
- * @author skevi
+ * @author CarlosDamian
  */
 public class SystemNotAvailableException extends Exception{
 

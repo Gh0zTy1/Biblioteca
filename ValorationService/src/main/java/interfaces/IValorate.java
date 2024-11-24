@@ -10,7 +10,7 @@ import entityes.Valoration;
 
 /**
  *
- * @author skevi
+ * @author CarlosDamian
  */
 public interface IValorate {
     

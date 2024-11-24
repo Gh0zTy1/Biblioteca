@@ -10,7 +10,7 @@ import valoration.Valorate;
 
 /**
  *
- * @author skevi
+ * @author CarlosDamian
  */
 public class ValoratedBooksFactory {
     

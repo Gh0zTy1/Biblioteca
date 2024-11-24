@@ -11,10 +11,9 @@ import entityes.Valoration;
 import java.util.ArrayList;
 import java.util.List;
 import interfaces.IValorate;
-
 /**
  *
- * @author skevi
+ * @author CarlosDamian
  */
 public class Valorate implements IValorate{
     

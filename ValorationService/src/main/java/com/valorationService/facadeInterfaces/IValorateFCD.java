@@ -5,10 +5,9 @@
 package com.valorationService.facadeInterfaces;
 
 import entityes.Valoration;
-
 /**
  *
- * @author skevi
+ * @author CarlosDamian
  */
 public interface IValorateFCD {
     
