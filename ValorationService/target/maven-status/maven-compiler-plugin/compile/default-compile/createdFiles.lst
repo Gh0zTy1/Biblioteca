@@ -1,0 +1,7 @@
+valoration\Valorate.class
+com\valorationService\exceptions\SystemNotAvailableException.class
+com\valorationService\integration\ExternalSystemIntegration.class
+com\valorationService\factories\ValoratedBooksFactory.class
+com\valorationService\exceptions\ValorationNotFoundException.class
+com\valorationService\facadeInterfaces\IValorateFCD.class
+interfaces\IValorate.class
