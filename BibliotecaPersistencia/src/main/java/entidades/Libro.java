@@ -77,6 +77,11 @@ public class Libro {
     public void setReseña(ReseñaLibro reseña) {
         this.reseña = reseña;
     }
+
+    @Override
+    public String toString() {
+        return "Libro{" + "id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", disponible=" + disponible + ", rese\u00f1a=" + reseña + '}';
+    }
     
     
     

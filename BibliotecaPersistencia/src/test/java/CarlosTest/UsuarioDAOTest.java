@@ -25,7 +25,8 @@ public class UsuarioDAOTest {
 
     @Before
     public void setUp() {
-        usuarioDAO = new IUsuarioDAO();
+        usuarioDAO = IUsuarioDAO.getInstancia();
+        usuarioDAO.buscarTodos().forEach(usuario -> usuarioDAO.eliminar(usuario.getId()));
         usuarioEjemplo = new Usuario("U001", "Juan Pérez", "juan@email.com");
     }
 

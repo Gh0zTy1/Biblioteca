@@ -16,10 +16,11 @@ import java.util.stream.Collectors;
  */
 public class ILibroDAO implements LibroDAO {
     private static ILibroDAO instancia; // Instancia única
-    private List<Libro> libros = new ArrayList<>();
+    private List<Libro> libros;
     
 
     private ILibroDAO() {
+        libros = new ArrayList<>();
     } // Constructor privado para evitar instanciación directa
     
     public static ILibroDAO getInstancia() {
@@ -87,5 +88,10 @@ public class ILibroDAO implements LibroDAO {
         if (indice != -1) {
             libros.set(indice, libro);
         }
+    }
+    public List<Libro> buscarLibrosPrestados() {
+    return libros.stream()
+                 .filter(libro -> !libro.isDisponible()) // Filtra libros no disponibles
+                 .collect(Collectors.toList());
     }
 }

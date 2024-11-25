@@ -14,8 +14,19 @@ import java.util.List;
  * @author caarl
  */
 public class IUsuarioDAO implements UsuarioDAO {
+    private static IUsuarioDAO instancia; 
     private List<Usuario> usuarios = new ArrayList<>();
-
+    
+    private IUsuarioDAO() {
+    }
+    
+    public static IUsuarioDAO getInstancia() {
+        if (instancia == null) {
+            instancia = new IUsuarioDAO();
+        }
+        return instancia;
+    }
+    
     @Override
     public Usuario guardar(Usuario usuario) {
         usuarios.add(usuario);

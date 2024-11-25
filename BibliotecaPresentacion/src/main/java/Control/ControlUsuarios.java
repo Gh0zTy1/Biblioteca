@@ -28,7 +28,7 @@ public class ControlUsuarios {
      * Constructor.
      */
     public ControlUsuarios() {
-        this.usuarioDAO = new IUsuarioDAO();
+        this.usuarioDAO = IUsuarioDAO.getInstancia();
     }
 
     /**

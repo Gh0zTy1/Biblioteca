@@ -5,10 +5,16 @@
  */
 package Control;
 import Presentacion.DlgLibro;
+import Presentacion.DlgPrestamo;
 import entidades.Libro;
+import entidades.Prestamo;
+import entidades.Usuario;
 import idao.ILibroDAO;
+import idao.IPrestamoDAO;
+import idao.IUsuarioDAO;
 
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 import javax.swing.JFrame;
@@ -19,19 +25,77 @@ import javax.swing.table.DefaultTableModel;
  * @author Ilian Fernando Gastelum Romo
  */
 public class Control {
-    ILibroDAO libroDAO; // Usa la instancia única
-    // Usa la instancia única
+    ILibroDAO libroDAO; // Usa la instancia 
+    IPrestamoDAO prestamoDAO;
+    IUsuarioDAO usuarioDAO;
+    // Usa la instancia únicaúnica
     private String nombresColumnasTablaLibros[] = {"ID", "Titulo", "Autor",
         "Disponibilidad"}; 
+    private String nombresColumnasTablaPrestamosLibros[] = {"Usuario", "Libro", "Fecha"};
+    private String nombresColumnasTablaInventarioLibros[] = {"Libro", 
+        "Disponibilidad",}; 
     /**
     * Constructor.
     */
     public Control() {
         this.libroDAO = ILibroDAO.getInstancia();
+        this.usuarioDAO = IUsuarioDAO.getInstancia();
+        this.prestamoDAO = IPrestamoDAO.getInstancia();
         
         
     } 
     
+    /**
+     * convierte una lista de libros a un objeto de tipo DefaultComboBoxModel que se emplea
+     * para desplegar los atributos de los libros de la lista. 
+     * @param listaLibros Lista de libros a convertir
+     * @return Objeto de tipo DefaultComboBoxMode con los libros
+     */
+    public DefaultComboBoxModel librosComboBoxModel(List<Libro> listaLibros){
+        DefaultComboBoxModel<Libro> defaultComboBoxModel = new DefaultComboBoxModel<>();
+        if (listaLibros != null) {
+            // Para cada elemento de la Lista
+            for (int i = 0; i < listaLibros.size(); i++){
+                // Agregalo a la instancia de la clase DefaultComboBoxModel 
+                defaultComboBoxModel.addElement(listaLibros.get(i)); 
+            }
+            return defaultComboBoxModel;
+        }
+        return null;
+    }
+    /**
+     * convierte una lista de usuarios a un objeto de tipo DefaultComboBoxModel 
+     * que se emplea para desplegar los atributos de los usuarios de la lista. 
+     * @param listaUsuarios Lista de usuarios a convertir
+     * @return Objeto de tipo DefaultComboBoxMode con los usuarios
+     */
+    DefaultComboBoxModel usuariosComboBoxModel(List<Usuario>listaUsuarios) {
+        DefaultComboBoxModel<Usuario> defaultComboBoxModel = new DefaultComboBoxModel<>();
+        if (listaUsuarios != null) {
+            // Para cada elemento de la Lista
+            for (int i = 0; i < listaUsuarios.size(); i++){
+                // Agregalo a la instancia de la clase DefaultComboBoxModel 
+                defaultComboBoxModel.addElement(listaUsuarios.get(i)); 
+            }
+            return defaultComboBoxModel;
+        }
+        return null;
+    }
+    public DefaultTableModel inventarioLibrosTableModel(List<Prestamo>listaInventarioLibros) {
+        Object tabla[][];
+        if (listaInventarioLibros != null) {
+            tabla = new Object[listaInventarioLibros.size()][3];
+            for (int i = 0; i < listaInventarioLibros.size(); i++) {
+                // Obten un usuario de la lista de usuarios
+                Prestamo prestamos = listaInventarioLibros.get(i);
+                // Almacena sus atributos en la fila del arreglo
+                tabla[i][0] = prestamos.getLibro();
+                tabla[i][2] = prestamos.getLibro().isDisponible();
+            }
+            return new DefaultTableModel(tabla, nombresColumnasTablaInventarioLibros);
+        }
+        return null;
+    }
     /**
     * Genera un objeto de tipo DefaultTableModel a partir de una lista de
     * libros.
@@ -53,6 +117,23 @@ public class Control {
                 tabla[i][3] = libro.isDisponible();
             }
             return new DefaultTableModel(tabla, nombresColumnasTablaLibros);
+        }
+        return null;
+    }
+    
+    public DefaultTableModel prestamoLibrosTableModel(List<Prestamo>listaPrestamoLibros){
+        Object tabla[][];
+        if (listaPrestamoLibros != null) {
+            tabla = new Object[listaPrestamoLibros.size()][4];
+            for (int i = 0; i < listaPrestamoLibros.size(); i++) {
+                // Obten un usuario de la lista de usuarios
+                Prestamo prestamo = listaPrestamoLibros.get(i);
+                // Almacena sus atributos en la fila del arreglo
+                tabla[i][0] = prestamo.getUsuario();
+                tabla[i][1] = prestamo.getLibro();
+                tabla[i][2] = prestamo.getFechaPrestamo();
+            }
+            return new DefaultTableModel(tabla, nombresColumnasTablaPrestamosLibros);
         }
         return null;
     }
@@ -303,6 +384,155 @@ public class Control {
         librosTableModel(listaLibros));  
         
     }
+    public Tabla getTablaPrestamosLibro(JFrame frame){
+        List<Prestamo> listaPrestamosLibro;
+        Libro libro;
+        String id = JOptionPane.showInputDialog(frame, "id del libro: ",
+        "Prestamos",JOptionPane.QUESTION_MESSAGE); 
+        libro = new Libro(Integer.parseInt(id));
+        try {
+            listaPrestamosLibro = prestamoDAO.consultarPrestamos(libro);
+        }
+        catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
+            JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return new Tabla("Prestamos por libro",
+        prestamoLibrosTableModel(listaPrestamosLibro));  
+        
+    }
+    
+    public boolean prestarLibro(JFrame frame){
+        Prestamo prestamo;
+        StringBuffer respuesta = new StringBuffer("");
+        DlgPrestamo dlgPrestamo;
+        List<Libro> listaLibros;
+        List<Usuario> listaUsuarios;
+        DefaultComboBoxModel<Libro> LibrosComboBoxModel; 
+        DefaultComboBoxModel<Usuario> UsuariosComboBoxModel; 
+        
+        try {
+            listaLibros = libroDAO.buscarTodos();
+            
+            listaUsuarios = usuarioDAO.buscarTodos();
+            
+        } 
+        catch (Exception e) {
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
+            JOptionPane.ERROR_MESSAGE);
+            return false;
+        } 
+        LibrosComboBoxModel = librosComboBoxModel(listaLibros); 
+        UsuariosComboBoxModel = usuariosComboBoxModel(listaUsuarios); 
+        
+        prestamo = new Prestamo((Usuario)UsuariosComboBoxModel.getSelectedItem(), (Libro)LibrosComboBoxModel.getSelectedItem());
+        
+        dlgPrestamo = new DlgPrestamo(frame, true, prestamo, LibrosComboBoxModel, 
+                UsuariosComboBoxModel, 0, respuesta, "Captura prestamos"); 
+        
+        // Si el usuario presiono el boton Cancelar
+        if (respuesta.substring(0).equals("Cancelar")) return false;
+        try {
+            prestamoDAO.registrarPrestamo(prestamo);
+        }
+        catch(Exception e) {
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
+            JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true; 
+    }
+    public boolean devolverLibro(JFrame frame){
+        Prestamo prestamo;
+        StringBuffer respuesta = new StringBuffer("");
+        DlgPrestamo dlgPrestamo;
+        List<Libro> listaLibros;
+        List<Usuario> listaUsuarios;
+        DefaultComboBoxModel<Libro> LibrosComboBoxModel; 
+        DefaultComboBoxModel<Usuario> UsuariosComboBoxModel; 
+        
+        try {
+            listaLibros = libroDAO.buscarTodos();
+            listaUsuarios = usuarioDAO.buscarTodos();
+        } 
+        catch (Exception e) {
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
+            JOptionPane.ERROR_MESSAGE);
+            return false;
+        } 
+        LibrosComboBoxModel = librosComboBoxModel(listaLibros); 
+        UsuariosComboBoxModel = usuariosComboBoxModel(listaUsuarios); 
+        
+        prestamo = new Prestamo((Usuario)UsuariosComboBoxModel.getSelectedItem(), (Libro)LibrosComboBoxModel.getSelectedItem());
+        
+        dlgPrestamo = new DlgPrestamo(frame, true, prestamo, LibrosComboBoxModel, 
+                UsuariosComboBoxModel, 2, respuesta, "devolver libro"); 
+        
+        // Si el usuario presiono el boton Cancelar
+        if (respuesta.substring(0).equals("Cancelar")) return false;
+        try {
+            prestamoDAO.devolverPrestamo(prestamo.getIdPrestamo());
+        }
+        catch(Exception e) {
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
+            JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true; 
+        }
+        public Tabla getTablaLibrosPrestados(JFrame frame){
+            List<Prestamo> listaLibrosPrestados;
+            try {
+                listaLibrosPrestados = prestamoDAO.buscarPrestamosDeLibrosPrestados();
+            }
+            catch (Exception e) {
+                // Si ocurrio un error al obtener la lista de la base de datos,
+                // despliega mensaje de error
+                JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
+                JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
+            return new Tabla("Lista de Libros prestados",
+            inventarioLibrosTableModel(listaLibrosPrestados));  
+        }
+        public Tabla getTablaPrestamosLibros(JFrame frame){
+        List<Prestamo> listaPrestamos;
+        try {
+            listaPrestamos = prestamoDAO.consultarPrestamos();
+        }
+        catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
+            JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return new Tabla("Prestamos",
+        prestamoLibrosTableModel(listaPrestamos));  
+        
+    }
+        public Tabla getTablaLibrosDisponibles(JFrame frame){
+            List<Prestamo> listaLibrosDisponibles;
+            try {
+                listaLibrosDisponibles = prestamoDAO.buscarPrestamosDeLibrosPrestados();
+            }
+            catch (Exception e) {
+                // Si ocurrio un error al obtener la lista de la base de datos,
+                // despliega mensaje de error
+                JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
+                JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
+            return new Tabla("Lista de Libros disponibles",
+            inventarioLibrosTableModel(listaLibrosDisponibles));  
+        }
 
 
     
