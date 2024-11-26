@@ -30,6 +30,7 @@ public class Libro {
 
     public Libro(int id) {
         this.id = id;
+        this.disponible = true;
     }
     
     
@@ -80,7 +81,7 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro{" + "id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", disponible=" + disponible + ", rese\u00f1a=" + reseña + '}';
+        return titulo;
     }
     
     

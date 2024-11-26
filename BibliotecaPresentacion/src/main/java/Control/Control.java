@@ -415,12 +415,12 @@ public class Control {
         DefaultComboBoxModel<Usuario> UsuariosComboBoxModel; 
         
         try {
-            listaLibros = libroDAO.buscarTodos();
+            listaLibros = libroDAO.lista();
             
-            listaUsuarios = usuarioDAO.buscarTodos();
+            listaUsuarios = usuarioDAO.lista();
             
         } 
-        catch (Exception e) {
+        catch (NullPointerException e) {
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
             JOptionPane.ERROR_MESSAGE);
@@ -430,13 +430,16 @@ public class Control {
         UsuariosComboBoxModel = usuariosComboBoxModel(listaUsuarios); 
         
         prestamo = new Prestamo((Usuario)UsuariosComboBoxModel.getSelectedItem(), (Libro)LibrosComboBoxModel.getSelectedItem());
-        
+        System.out.println("prestamo "+prestamo);
+        System.out.println("Libro "+prestamo.getLibro());
+        System.out.println("usuario "+prestamo.getUsuario());
         dlgPrestamo = new DlgPrestamo(frame, true, prestamo, LibrosComboBoxModel, 
                 UsuariosComboBoxModel, 0, respuesta, "Captura prestamos"); 
         
         // Si el usuario presiono el boton Cancelar
         if (respuesta.substring(0).equals("Cancelar")) return false;
         try {
+            
             prestamoDAO.registrarPrestamo(prestamo);
         }
         catch(Exception e) {
@@ -457,8 +460,8 @@ public class Control {
         DefaultComboBoxModel<Usuario> UsuariosComboBoxModel; 
         
         try {
-            listaLibros = libroDAO.buscarTodos();
-            listaUsuarios = usuarioDAO.buscarTodos();
+            listaLibros = libroDAO.lista();
+            listaUsuarios = usuarioDAO.lista();
         } 
         catch (Exception e) {
             // despliega mensaje de error
@@ -477,7 +480,7 @@ public class Control {
         // Si el usuario presiono el boton Cancelar
         if (respuesta.substring(0).equals("Cancelar")) return false;
         try {
-            prestamoDAO.devolverPrestamo(prestamo.getIdPrestamo());
+            prestamoDAO.devolverPrestamo(prestamo);
         }
         catch(Exception e) {
             // despliega mensaje de error
@@ -486,7 +489,7 @@ public class Control {
             return false;
         }
         return true; 
-        }
+    }
         public Tabla getTablaLibrosPrestados(JFrame frame){
             List<Prestamo> listaLibrosPrestados;
             try {

@@ -14,10 +14,11 @@ import java.util.List;
  * @author gaspa
  */
 public interface PrestamoDAO {
-    boolean registrarPrestamo(Prestamo prestamo);
-    boolean devolverPrestamo(int idPrestamo);
+    void registrarPrestamo(Prestamo prestamo) throws Exception;
+    
     Prestamo consultarPrestamo(int idPrestamo);
     List<Prestamo> listarPrestamos();
-    public List<Prestamo> consultarPrestamos(Libro libro);
-    public List<Prestamo> consultarPrestamos();
+    List<Prestamo> consultarPrestamos(Libro libro);
+    List<Prestamo> consultarPrestamos();
+    void devolverPrestamo(Prestamo prestamo) throws Exception; 
 }

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @author gaspa
  */
 public class IPrestamoDAO implements PrestamoDAO{
-    private List<Prestamo> prestamos = new ArrayList<>();
+    private List<Prestamo> prestamos;
     private static IPrestamoDAO instancia; 
     public static IPrestamoDAO getInstancia() {
         if (instancia == null) {
@@ -26,37 +26,48 @@ public class IPrestamoDAO implements PrestamoDAO{
         }
         return instancia;
     }
+    private IPrestamoDAO(){
+        prestamos = new ArrayList<>();
+    }
     
     @Override
-    public boolean registrarPrestamo(Prestamo prestamo) {
-        return prestamos.add(prestamo);
+    public void registrarPrestamo(Prestamo prestamo) throws Exception {
+        
+        Libro libro=prestamo.getLibro();
+        System.out.println(libro);
+        
+        if(obten(prestamo)!=null)throw new Exception("El libro ya esta prestado al usuario");
+        
+        prestamos.add(prestamo);
+        System.out.println(prestamos);
+        libro.setDisponible(false);    
+        
     }
 
     @Override
-    public boolean devolverPrestamo(int idPrestamo) {
-        for (Prestamo prestamo : prestamos) {
-            if (prestamo.getIdPrestamo() == idPrestamo) {
-                prestamo.setFechaDevolucion(new Date());
-                return true;
-            }
-        }
-        return false;
+    public void devolverPrestamo(Prestamo prestamo) throws Exception {
+        int posIsbn=prestamos.indexOf(prestamo);
+        System.out.println(posIsbn);
+        System.out.println(prestamos);
+        int posNumCred=prestamos.indexOf(prestamo);
+        if(posIsbn!=posNumCred)throw new Exception("Los parametros no coinciden");
+        if(posIsbn<0||posNumCred<0)throw new Exception("Parametro inexistente");
+        prestamos.remove(prestamo);
+        
     }
 
-    @Override
-    public Prestamo consultarPrestamo(int idPrestamo) {
-        for (Prestamo prestamo : prestamos) {
-            if (prestamo.getIdPrestamo() == idPrestamo) {
-                return prestamo;
-            }
-        }
-        return null;
-    }
     
 
     @Override
     public List<Prestamo> listarPrestamos() {
         return prestamos;
+    }
+    
+    public Prestamo obten(Prestamo prestamo){
+        int posIsbn=prestamos.indexOf(prestamo);
+        int posNumCred=prestamos.indexOf(prestamo);
+        if(posIsbn==posNumCred&&posIsbn>=0&&posNumCred>=0)return prestamos.get(posIsbn);
+        return null;
     }
     
     @Override
@@ -72,6 +83,7 @@ public class IPrestamoDAO implements PrestamoDAO{
         return prestamosPorLibro;
     }
     
+    @Override
     public List<Prestamo> consultarPrestamos() {
         return new ArrayList<>(prestamos); // Devuelve una copia de la lista para evitar modificar el original
     }
@@ -80,7 +92,12 @@ public class IPrestamoDAO implements PrestamoDAO{
     return prestamos.stream()
                     .filter(prestamo -> prestamo.getLibro() != null && !prestamo.getLibro().isDisponible())
                     .collect(Collectors.toList());
-}
+    }
+
+    @Override
+    public Prestamo consultarPrestamo(int idPrestamo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
 

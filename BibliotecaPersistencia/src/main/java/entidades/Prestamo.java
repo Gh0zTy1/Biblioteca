@@ -3,6 +3,7 @@ package entidades;
 
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Esta clase contiene los atributos y metodos de un prestamo
@@ -10,15 +11,14 @@ import java.util.Date;
  */
 public class Prestamo {
     
-    private int idPrestamo;
     private Usuario usuario;
     private Libro libro;
     private Date fechaPrestamo;
     private Date fechaDevolucion;
 
     // Constructores
-    public Prestamo(int idPrestamo, Usuario usuario, Libro libro, Date fechaPrestamo, Date fechaDevolucion) {
-        this.idPrestamo = idPrestamo;
+    public Prestamo(Usuario usuario, Libro libro, Date fechaPrestamo, Date fechaDevolucion) {
+        
         this.usuario = usuario;
         this.libro = libro;
         this.fechaPrestamo = fechaPrestamo;
@@ -29,15 +29,6 @@ public class Prestamo {
         this.usuario = usuario;
         this.libro = libro;
         this.fechaPrestamo = null;
-    }
-
-    // Getters y Setters
-    public int getIdPrestamo() {
-        return idPrestamo;
-    }
-
-    public void setIdPrestamo(int idPrestamo) {
-        this.idPrestamo = idPrestamo;
     }
 
     public Usuario getUsuario() {
@@ -73,8 +64,36 @@ public class Prestamo {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + Objects.hashCode(this.usuario);
+        hash = 83 * hash + Objects.hashCode(this.libro);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Prestamo other = (Prestamo) obj;
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        return Objects.equals(this.libro, other.libro);
+    }
+    
+    
+
+    @Override
     public String toString() {
-        return "Prestamo{" + "idPrestamo=" + idPrestamo + ", usuario=" + usuario + ", libro=" + libro + ", fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion + '}';
+        return "Prestamo{" + ", usuario=" + usuario + ", libro=" + libro + ", fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion + '}';
     }
     
     

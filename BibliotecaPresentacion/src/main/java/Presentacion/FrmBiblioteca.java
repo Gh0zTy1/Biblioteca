@@ -80,15 +80,8 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         opcionMenuConsultaLibrosTitulo = new javax.swing.JMenuItem();
         opcionMenuConsultaLibrosID = new javax.swing.JMenuItem();
         opcionMenuConsultaUsuarios = new javax.swing.JMenuItem();
-        menuConsultaInventarioLibros = new javax.swing.JMenu();
-        opcionMenuConsultaInventarioLibros = new javax.swing.JMenuItem();
-        opcionMenuConsultaInventarioLibrosPrestados = new javax.swing.JMenuItem();
-        opcionMenuConsultaInventarioLibrosDisponibles = new javax.swing.JMenuItem();
         menuConsultaPrestamosLibros = new javax.swing.JMenu();
         opcionMenuConsultaPrestamosLibros = new javax.swing.JMenuItem();
-        opcionMenuConsultaPrestamosLibrosUsuario = new javax.swing.JMenuItem();
-        opcionMenuConsultaPrestamosLibro = new javax.swing.JMenuItem();
-        opcionMenuConsultaPrestamosLibrosPeriodo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de Biblioteca");
@@ -241,34 +234,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         });
         menuConsultas.add(opcionMenuConsultaUsuarios);
 
-        menuConsultaInventarioLibros.setText("Inventario Libros");
-
-        opcionMenuConsultaInventarioLibros.setText("Todos");
-        opcionMenuConsultaInventarioLibros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuConsultaInventarioLibrosActionPerformed(evt);
-            }
-        });
-        menuConsultaInventarioLibros.add(opcionMenuConsultaInventarioLibros);
-
-        opcionMenuConsultaInventarioLibrosPrestados.setText("Préstados");
-        opcionMenuConsultaInventarioLibrosPrestados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuConsultaInventarioLibrosPrestadosActionPerformed(evt);
-            }
-        });
-        menuConsultaInventarioLibros.add(opcionMenuConsultaInventarioLibrosPrestados);
-
-        opcionMenuConsultaInventarioLibrosDisponibles.setText("Disponibles");
-        opcionMenuConsultaInventarioLibrosDisponibles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed(evt);
-            }
-        });
-        menuConsultaInventarioLibros.add(opcionMenuConsultaInventarioLibrosDisponibles);
-
-        menuConsultas.add(menuConsultaInventarioLibros);
-
         menuConsultaPrestamosLibros.setText("Préstamos Libros");
 
         opcionMenuConsultaPrestamosLibros.setText("Todos");
@@ -278,30 +243,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
             }
         });
         menuConsultaPrestamosLibros.add(opcionMenuConsultaPrestamosLibros);
-
-        opcionMenuConsultaPrestamosLibrosUsuario.setText("Por Usuario");
-        opcionMenuConsultaPrestamosLibrosUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed(evt);
-            }
-        });
-        menuConsultaPrestamosLibros.add(opcionMenuConsultaPrestamosLibrosUsuario);
-
-        opcionMenuConsultaPrestamosLibro.setText("Por Libro");
-        opcionMenuConsultaPrestamosLibro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuConsultaPrestamosLibroActionPerformed(evt);
-            }
-        });
-        menuConsultaPrestamosLibros.add(opcionMenuConsultaPrestamosLibro);
-
-        opcionMenuConsultaPrestamosLibrosPeriodo.setText("Por Periodo");
-        opcionMenuConsultaPrestamosLibrosPeriodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed(evt);
-            }
-        });
-        menuConsultaPrestamosLibros.add(opcionMenuConsultaPrestamosLibrosPeriodo);
 
         menuConsultas.add(menuConsultaPrestamosLibros);
 
@@ -466,36 +407,21 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     }//GEN-LAST:event_opcionMenuConsultaLibrosIDActionPerformed
 
     private void opcionMenuConsultaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaUsuariosActionPerformed
-        
+        Tabla tablaUsuarios = controlUSU.getTablaUsuarios(this);
+        // Despliega la lista de libros
+        if (tablaUsuarios != null) {
+            despliegaTabla(tablaUsuarios);
+        }
     }//GEN-LAST:event_opcionMenuConsultaUsuariosActionPerformed
 
-    private void opcionMenuConsultaInventarioLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosActionPerformed
-        
-    }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosActionPerformed
-
-    private void opcionMenuConsultaInventarioLibrosPrestadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosPrestadosActionPerformed
-       
-    }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosPrestadosActionPerformed
-
-    private void opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed
-        
-    }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed
-
     private void opcionMenuConsultaPrestamosLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosActionPerformed
-       
+        // Obtiene la lista de libros
+        Tabla tablaLibrosPrestados = control.getTablaPrestamosLibros(this);
+        // Despliega la lista de libros
+        if (tablaLibrosPrestados != null) {
+            despliegaTabla(tablaLibrosPrestados);
+        } 
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosActionPerformed
-
-    private void opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed
-        
-    }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed
-
-    private void opcionMenuConsultaPrestamosLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibroActionPerformed
-        
-     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibroActionPerformed
-
-    private void opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed
-        
-    }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed
 
     private void opcionMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuSalirActionPerformed
         dispose();
@@ -513,7 +439,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     private javax.swing.JMenu menuCatalogoLibros;
     private javax.swing.JMenu menuCatalogoUsuarios;
     private javax.swing.JMenu menuCatalogos;
-    private javax.swing.JMenu menuConsultaInventarioLibros;
     private javax.swing.JMenu menuConsultaLibros;
     private javax.swing.JMenu menuConsultaPrestamosLibros;
     private javax.swing.JMenu menuConsultas;
@@ -523,17 +448,11 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     private javax.swing.JMenuItem opcionMenuActualizarUsuario;
     private javax.swing.JMenuItem opcionMenuAgregarLibro;
     private javax.swing.JMenuItem opcionMenuAgregarUsuario;
-    private javax.swing.JMenuItem opcionMenuConsultaInventarioLibros;
-    private javax.swing.JMenuItem opcionMenuConsultaInventarioLibrosDisponibles;
-    private javax.swing.JMenuItem opcionMenuConsultaInventarioLibrosPrestados;
     private javax.swing.JMenuItem opcionMenuConsultaLibros;
     private javax.swing.JMenuItem opcionMenuConsultaLibrosAutor;
     private javax.swing.JMenuItem opcionMenuConsultaLibrosID;
     private javax.swing.JMenuItem opcionMenuConsultaLibrosTitulo;
-    private javax.swing.JMenuItem opcionMenuConsultaPrestamosLibro;
     private javax.swing.JMenuItem opcionMenuConsultaPrestamosLibros;
-    private javax.swing.JMenuItem opcionMenuConsultaPrestamosLibrosPeriodo;
-    private javax.swing.JMenuItem opcionMenuConsultaPrestamosLibrosUsuario;
     private javax.swing.JMenuItem opcionMenuConsultaUsuarios;
     private javax.swing.JMenuItem opcionMenuDevolverLibro;
     private javax.swing.JMenuItem opcionMenuEliminarLibro;

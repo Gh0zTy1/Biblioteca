@@ -170,37 +170,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuConsultaUsuariosActionPerformed"/>
               </Events>
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="menuConsultaInventarioLibros">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Inventario Libros"/>
-              </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="opcionMenuConsultaInventarioLibros">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Todos"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuConsultaInventarioLibrosActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="opcionMenuConsultaInventarioLibrosPrestados">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Pr&#xe9;stados"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuConsultaInventarioLibrosPrestadosActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="opcionMenuConsultaInventarioLibrosDisponibles">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Disponibles"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed"/>
-                  </Events>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
             <Menu class="javax.swing.JMenu" name="menuConsultaPrestamosLibros">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pr&#xe9;stamos Libros"/>
@@ -212,30 +181,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuConsultaPrestamosLibrosActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="opcionMenuConsultaPrestamosLibrosUsuario">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Por Usuario"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="opcionMenuConsultaPrestamosLibro">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Por Libro"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuConsultaPrestamosLibroActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="opcionMenuConsultaPrestamosLibrosPeriodo">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Por Periodo"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

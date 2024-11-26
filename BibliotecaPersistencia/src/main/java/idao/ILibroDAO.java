@@ -94,4 +94,7 @@ public class ILibroDAO implements LibroDAO {
                  .filter(libro -> !libro.isDisponible()) // Filtra libros no disponibles
                  .collect(Collectors.toList());
     }
+    public List<Libro> lista(){
+        return libros;
+    }
 }

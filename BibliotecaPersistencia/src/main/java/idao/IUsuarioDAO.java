@@ -15,9 +15,10 @@ import java.util.List;
  */
 public class IUsuarioDAO implements UsuarioDAO {
     private static IUsuarioDAO instancia; 
-    private List<Usuario> usuarios = new ArrayList<>();
+    private List<Usuario> usuarios;
     
     private IUsuarioDAO() {
+        usuarios = new ArrayList<>();
     }
     
     public static IUsuarioDAO getInstancia() {
@@ -63,5 +64,8 @@ public class IUsuarioDAO implements UsuarioDAO {
     @Override
     public void eliminar(String id) {
         usuarios.removeIf(u -> u.getId().equals(id));
+    }
+    public List<Usuario> lista(){
+        return usuarios;
     }
 }
