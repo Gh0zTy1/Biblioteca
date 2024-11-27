@@ -7,45 +7,23 @@ package com.valorationService.integration;
 import com.valorationService.exceptions.SystemNotAvailableException;
 import com.valorationService.exceptions.ValorationNotFoundException;
 import com.valorationService.facadeInterfaces.IValorateFCD;
-import entityes.Valoration;
+import entidades.ReseñaLibro;
 import interfaces.IValorate;
-import valoration.Valorate;
 
-/**
- *
- * @author CarlosDamian
- */
-public class ExternalSystemIntegration implements IValorateFCD{
+public class ExternalSystemIntegration implements IValorateFCD {
 
-    /**
-     * 
-     */
-    private final IValorate valoration;
+    private final IValorate valorate;
 
-    /**
-     * 
-     * @param valoration
-     */
-    public ExternalSystemIntegration(IValorate valoration) {
-        this.valoration = valoration;
+    public ExternalSystemIntegration(IValorate valorate) {
+        this.valorate = valorate;
     }
-    
-    /**
-     * 
-     * @param title
-     * @param author
-     * @return
-     * @throws java.lang.Exception
-     */
+
     @Override
-    public Valoration getValoration(String title, String author) 
-            throws Exception{
-        try{
-            return valoration.getValoration(title, author);
-        }
-        catch(SystemNotAvailableException | ValorationNotFoundException ex){
+    public ReseñaLibro getValoration(String title, String author) throws Exception {
+        try {
+            return valorate.getValoration(title, author);
+        } catch (SystemNotAvailableException | ValorationNotFoundException ex) {
             throw new Exception(ex.getMessage());
         }
     }
-    
 }

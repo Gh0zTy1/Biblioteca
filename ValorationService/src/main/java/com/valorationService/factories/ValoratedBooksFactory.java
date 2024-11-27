@@ -4,85 +4,25 @@
  */
 package com.valorationService.factories;
 
-import entityes.Book;
-import entityes.Valoration;
+import entidades.Libro;
+import entidades.ReseñaLibro;
 import valoration.Valorate;
 
-/**
- *
- * @author CarlosDamian
- */
 public class ValoratedBooksFactory {
-    
-    /**
-     * 
-     */
-    Valorate valorate;
 
-    /**
-     * 
-     * @param valorate 
-     */
+    private final Valorate valorate;
+
     public ValoratedBooksFactory(Valorate valorate) {
         this.valorate = valorate;
     }
-    
-    /**
-     * 
-     */
-    public void fabricateValoratedBooks(){
-        
-            Valoration valoration1 = new Valoration((byte)5, 
-                    "Maginifico libro");
-            Valoration valoration2 = new Valoration((byte)3, 
-                    "Un libro emocionante");
-            Valoration valoration3 = new Valoration((byte)4, 
-                    "Triste y emotivo en toda la historia");
-            Valoration valoration4 = new Valoration((byte)2, 
-                    "Cargado de emotividad y reflexion");
-            Valoration valoration5 = new Valoration((byte)4, 
-                    "Muy interesante y conmovedor");            
-            
-            valorate.addBook(new Book("978-3-16", 
-                                            "Cien años de soledad", 
-                                            "Gabriel García Márquez",
-                                             valoration1));
-            valorate.addBook(new Book("978-0-452", 
-                                            "Orgullo y prejuicio", 
-                                            "Jane Austen",
-                                             valoration2));
-            valorate.addBook(new Book("978-1-566", 
-                                            "1984", 
-                                            "George Orwell",
-                                             valoration3));
-            valorate.addBook(new Book("978-0-743", 
-                                            "El gran Gatsby", 
-                                            "F. Scott Fitzgerald",
-                                             valoration4));
-            valorate.addBook(new Book("938-0-143", 
-                                            "El gran Gatsby", 
-                                            "F. Scott Fitzgerald",
-                                             valoration4));
-            valorate.addBook(new Book("978-0-525", 
-                                            "Don Quijote de la Mancha", 
-                                            "Miguel de Cervantes",
-                                             valoration3));
-            valorate.addBook(new Book("948-1-741", 
-                                            "1984", 
-                                            "George Orwell",
-                                             valoration3));
-            valorate.addBook(new Book("578-0-123", 
-                                            "Orgullo y prejuicio", 
-                                            "Jane Austen",
-                                             valoration2));
-            valorate.addBook(new Book("978-1-4767", 
-                                            "Inferno", 
-                                            "Dan Brown",
-                                             valoration5));
-            valorate.addBook(new Book("978-0-452", 
-                                            "Orgullo y prejuicio", 
-                                            "Jane Austen",
-                                             valoration2));
+
+    public void fabricateValoratedBooks() {
+        ReseñaLibro reseña1 = new ReseñaLibro(5.0, "Magnífico libro");
+        ReseñaLibro reseña2 = new ReseñaLibro(3.0, "Un libro emocionante");
+        ReseñaLibro reseña3 = new ReseñaLibro(4.0, "Triste y emotivo en toda la historia");
+
+        valorate.addBook(new Libro("Cien años de soledad", "Gabriel García Márquez", 1));
+        valorate.addBook(new Libro("Orgullo y prejuicio", "Jane Austen", 2));
+        valorate.addBook(new Libro("1984", "George Orwell", 3));
     }
-    
 }

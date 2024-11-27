@@ -6,65 +6,41 @@ package valoration;
 
 import com.valorationService.exceptions.SystemNotAvailableException;
 import com.valorationService.exceptions.ValorationNotFoundException;
-import entityes.Book;
-import entityes.Valoration;
+import entidades.Libro;
+import entidades.ReseñaLibro;
+import entidades.Valoration;
 import java.util.ArrayList;
 import java.util.List;
 import interfaces.IValorate;
-/**
- *
- * @author CarlosDamian
- */
-public class Valorate implements IValorate{
-    
-    /**
-     * 
-     */
-    private static List<Book> books = new ArrayList<>();
 
-    /**
-     * 
-     */
+public class Valorate implements IValorate {
+
+    private static List<Libro> libros = new ArrayList<>();
+
     public Valorate() {
-        
     }
-    
-    /**
-     * 
-     * @param title
-     * @param author
-     * @return 
-     */
-    @Override
-    public Valoration getValoration(String title, String author) throws 
-            SystemNotAvailableException, ValorationNotFoundException {
-        
-        for (Book book : books) {
-            if (book.getTitulo().equalsIgnoreCase(title) &&
-                    book.getAutor().equalsIgnoreCase(author)) {
-                return book.getValoration();
+
+   @Override
+public Valoration getValoration(String title, String author) 
+        throws SystemNotAvailableException, ValorationNotFoundException {
+    for (Libro libro : libros) {
+        if (libro.getTitulo().equalsIgnoreCase(title) &&
+                libro.getAutor().equalsIgnoreCase(author)) {
+            if (libro.getReseña() != null) {
+                ReseñaLibro reseña = libro.getReseña();
+                return new Valoration(reseña.getCalificacion(), reseña.getReseña());
             }
         }
-        
-        throw new ValorationNotFoundException("La valoracion para el libro "
-                + "con los campos proporcionados no ha sido encontrado");
     }
-    
-    /**
-     * 
-     * @param book 
-     */
-    public void addBook(Book book){
-        Valorate.books.add(book);
+    throw new ValorationNotFoundException("No se encontró el libro con el título y autor proporcionados.");
+}
+
+
+    public void addBook(Libro libro) {
+        libros.add(libro);
     }
-    
-    /**
-     * 
-     * @return 
-     */
-    public List<Book> getBooksToValorate() {
-        return books;
+
+    public List<Libro> getBooksToValorate() {
+        return new ArrayList<>(libros);
     }
-    
-    
 }

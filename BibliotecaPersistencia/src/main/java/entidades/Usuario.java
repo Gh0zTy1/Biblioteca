@@ -19,6 +19,13 @@ public class Usuario {
         this.correo = correo;
     }
 
+    public Usuario(String id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+    
+    
+
     public String getId() {
         return id;
     }

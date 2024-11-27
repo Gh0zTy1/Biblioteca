@@ -7,9 +7,7 @@ package idao;
 import daos.PrestamoDAO;
 import entidades.Libro;
 import entidades.Prestamo;
-import entidades.Usuario;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,16 +43,23 @@ public class IPrestamoDAO implements PrestamoDAO{
     }
 
     @Override
-    public void devolverPrestamo(Prestamo prestamo) throws Exception {
-        int posIsbn=prestamos.indexOf(prestamo);
-        System.out.println(posIsbn);
-        System.out.println(prestamos);
-        int posNumCred=prestamos.indexOf(prestamo);
-        if(posIsbn!=posNumCred)throw new Exception("Los parametros no coinciden");
-        if(posIsbn<0||posNumCred<0)throw new Exception("Parametro inexistente");
-        prestamos.remove(prestamo);
-        
-    }
+public void devolverPrestamo(Prestamo prestamo) throws Exception {
+    int posIsbn = prestamos.indexOf(prestamo);
+    System.out.println(posIsbn);
+    System.out.println(prestamos);
+    int posNumCred = prestamos.indexOf(prestamo);
+    if (posIsbn != posNumCred) throw new Exception("Los parametros no coinciden");
+    if (posIsbn < 0 || posNumCred < 0) throw new Exception("Parametro inexistente");
+    
+    // Primero, obtenemos el libro y lo marcamos como disponible
+    Libro libro = prestamo.getLibro();
+    libro.setDisponible(true);
+    
+    // Luego, eliminamos el préstamo de la lista
+    prestamos.remove(prestamo);
+    
+    System.out.println("Libro devuelto y disponible: " + libro);
+}
 
     
 

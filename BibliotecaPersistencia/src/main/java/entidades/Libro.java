@@ -15,6 +15,17 @@ public class Libro {
     private boolean disponible;
     private ReseñaLibro reseña;
 
+    public Libro(String titulo, String autor, int id) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.reseña = reseña;
+    }
+
+    
+    
+    
+
     public Libro(int id, String titulo, String autor) {
         this.id = id;
         this.titulo = titulo;

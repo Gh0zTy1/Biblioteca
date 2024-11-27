@@ -4,13 +4,8 @@
  */
 package com.valorationService.facadeInterfaces;
 
-import entityes.Valoration;
-/**
- *
- * @author CarlosDamian
- */
+import entidades.Valoration;
+
 public interface IValorateFCD {
-    
     Valoration getValoration(String title, String author) throws Exception;
-    
 }
