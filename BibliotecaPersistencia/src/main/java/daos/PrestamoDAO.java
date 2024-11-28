@@ -16,7 +16,7 @@ import java.util.List;
 public interface PrestamoDAO {
     void registrarPrestamo(Prestamo prestamo) throws Exception;
     
-    Prestamo consultarPrestamo(int idPrestamo);
+  
     List<Prestamo> listarPrestamos();
     List<Prestamo> consultarPrestamos(Libro libro);
     List<Prestamo> consultarPrestamos();

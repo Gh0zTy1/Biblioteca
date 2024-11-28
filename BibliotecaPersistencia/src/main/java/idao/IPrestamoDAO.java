@@ -42,24 +42,21 @@ public class IPrestamoDAO implements PrestamoDAO{
         
     }
 
-    @Override
+   @Override
 public void devolverPrestamo(Prestamo prestamo) throws Exception {
-    int posIsbn = prestamos.indexOf(prestamo);
-    System.out.println(posIsbn);
-    System.out.println(prestamos);
-    int posNumCred = prestamos.indexOf(prestamo);
-    if (posIsbn != posNumCred) throw new Exception("Los parametros no coinciden");
-    if (posIsbn < 0 || posNumCred < 0) throw new Exception("Parametro inexistente");
-    
-    // Primero, obtenemos el libro y lo marcamos como disponible
+    int pos = prestamos.indexOf(prestamo);
+    if (pos < 0) {
+        throw new Exception("Préstamo no encontrado");
+    }
+
+    // Marca el libro como disponible y elimina el préstamo
     Libro libro = prestamo.getLibro();
     libro.setDisponible(true);
-    
-    // Luego, eliminamos el préstamo de la lista
-    prestamos.remove(prestamo);
-    
+    prestamos.remove(pos);
+
     System.out.println("Libro devuelto y disponible: " + libro);
 }
+
 
     
 
@@ -68,25 +65,19 @@ public void devolverPrestamo(Prestamo prestamo) throws Exception {
         return prestamos;
     }
     
-    public Prestamo obten(Prestamo prestamo){
-        int posIsbn=prestamos.indexOf(prestamo);
-        int posNumCred=prestamos.indexOf(prestamo);
-        if(posIsbn==posNumCred&&posIsbn>=0&&posNumCred>=0)return prestamos.get(posIsbn);
-        return null;
-    }
-    
     @Override
-    public List<Prestamo> consultarPrestamos(Libro libro) {
-        List<Prestamo> prestamosPorLibro = new ArrayList<>();
+public List<Prestamo> consultarPrestamos(Libro libro) {
+    return prestamos.stream()
+                    .filter(p -> p.getLibro().equals(libro))  // Filtra por libro
+                    .collect(Collectors.toList());
+}
 
-        for (Prestamo prestamo : prestamos) {
-            if (prestamo.getLibro().getId()== libro.getId()) {
-                prestamosPorLibro.add(prestamo);
-            }
-        }
-
-        return prestamosPorLibro;
-    }
+public Prestamo obten(Prestamo prestamo) {
+    return prestamos.stream()
+                    .filter(p -> p.equals(prestamo))  // Busca el préstamo por libro y usuario
+                    .findFirst()
+                    .orElse(null);
+}
     
     @Override
     public List<Prestamo> consultarPrestamos() {
@@ -99,10 +90,7 @@ public void devolverPrestamo(Prestamo prestamo) throws Exception {
                     .collect(Collectors.toList());
     }
 
-    @Override
-    public Prestamo consultarPrestamo(int idPrestamo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
     
 }
 

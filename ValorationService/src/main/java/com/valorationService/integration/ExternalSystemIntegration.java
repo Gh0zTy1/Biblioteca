@@ -4,10 +4,12 @@
  */
 package com.valorationService.integration;
 
+import ValorationMapper.ValorationMapper;
 import com.valorationService.exceptions.SystemNotAvailableException;
 import com.valorationService.exceptions.ValorationNotFoundException;
 import com.valorationService.facadeInterfaces.IValorateFCD;
 import entidades.ReseñaLibro;
+import entidades.Valoration;
 import interfaces.IValorate;
 
 public class ExternalSystemIntegration implements IValorateFCD {
@@ -19,11 +21,15 @@ public class ExternalSystemIntegration implements IValorateFCD {
     }
 
     @Override
-    public ReseñaLibro getValoration(String title, String author) throws Exception {
-        try {
-            return valorate.getValoration(title, author);
-        } catch (SystemNotAvailableException | ValorationNotFoundException ex) {
-            throw new Exception(ex.getMessage());
-        }
+public ReseñaLibro getValoration(String title, String author) throws Exception {
+    try {
+        Valoration valoration = valorate.getValoration(title, author);
+
+        // Usa ValorationMapper para convertir a ReseñaLibro
+        return ValorationMapper.toReseñaLibro(valoration);
+    } catch (SystemNotAvailableException | ValorationNotFoundException ex) {
+        throw new Exception(ex.getMessage());
     }
+}
+
 }

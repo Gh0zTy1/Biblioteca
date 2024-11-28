@@ -12,6 +12,11 @@ public class ReseñaLibro {
     private double calificacion;
     private String reseña;
 
+    public ReseñaLibro() {
+    }
+
+    
+    
     public ReseñaLibro(double calificacion, String reseña) {
         this.calificacion = calificacion;
         this.reseña = reseña;

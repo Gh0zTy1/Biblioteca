@@ -15,6 +15,9 @@ public class Prestamo {
     private Libro libro;
     private Date fechaPrestamo;
     private Date fechaDevolucion;
+    private int valoracion; // Puede ser un número de estrellas, o un campo de texto para comentarios
+private String comentario; // Si deseas permitir que el usuario deje un comentario
+
 
     // Constructores
     public Prestamo(Usuario usuario, Libro libro, Date fechaPrestamo, Date fechaDevolucion) {
@@ -31,6 +34,17 @@ public class Prestamo {
         this.fechaPrestamo = null;
     }
 
+    public Prestamo(Usuario usuario, Libro libro, Date fechaPrestamo, Date fechaDevolucion, int valoracion, String comentario) {
+        this.usuario = usuario;
+        this.libro = libro;
+        this.fechaPrestamo = fechaPrestamo;
+        this.fechaDevolucion = fechaDevolucion;
+        this.valoracion = valoracion;
+        this.comentario = comentario;
+    }
+
+    
+    
     public Usuario getUsuario() {
         return usuario;
     }
@@ -62,6 +76,25 @@ public class Prestamo {
     public void setFechaDevolucion(Date fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
     }
+
+    public int getValoracion() {
+        return valoracion;
+    }
+
+    public void setValoracion(int valoracion) {
+        this.valoracion = valoracion;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {

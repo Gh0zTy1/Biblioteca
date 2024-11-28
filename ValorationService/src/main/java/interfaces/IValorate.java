@@ -6,9 +6,9 @@ package interfaces;
 
 import com.valorationService.exceptions.SystemNotAvailableException;
 import com.valorationService.exceptions.ValorationNotFoundException;
-import entidades.ReseñaLibro;
+import entidades.Valoration;
 
 public interface IValorate {
-    ReseñaLibro getValoration(String title, String author) throws 
-            SystemNotAvailableException, ValorationNotFoundException;
+    Valoration getValoration(String title, String author) 
+        throws SystemNotAvailableException, ValorationNotFoundException;
 }

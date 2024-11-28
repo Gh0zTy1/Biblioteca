@@ -9,32 +9,31 @@ import com.valorationService.exceptions.ValorationNotFoundException;
 import entidades.Libro;
 import entidades.ReseñaLibro;
 import entidades.Valoration;
+import interfaces.IValorate;
 import java.util.ArrayList;
 import java.util.List;
-import interfaces.IValorate;
 
-public class Valorate implements IValorate {
+public  class Valorate implements IValorate {
 
-    private static List<Libro> libros = new ArrayList<>();
+    private static final List<Libro> libros = new ArrayList<>();
 
     public Valorate() {
     }
 
-   @Override
-public Valoration getValoration(String title, String author) 
-        throws SystemNotAvailableException, ValorationNotFoundException {
-    for (Libro libro : libros) {
-        if (libro.getTitulo().equalsIgnoreCase(title) &&
-                libro.getAutor().equalsIgnoreCase(author)) {
-            if (libro.getReseña() != null) {
-                ReseñaLibro reseña = libro.getReseña();
-                return new Valoration(reseña.getCalificacion(), reseña.getReseña());
+    @Override
+    public Valoration getValoration(String title, String author) 
+            throws SystemNotAvailableException, ValorationNotFoundException {
+        for (Libro libro : libros) {
+            if (libro.getTitulo().equalsIgnoreCase(title) &&
+                    libro.getAutor().equalsIgnoreCase(author)) {
+                if (libro.getReseña() != null) {
+                    ReseñaLibro reseña = libro.getReseña();
+                    return new Valoration(reseña.getCalificacion(), reseña.getReseña());
+                }
             }
         }
+        throw new ValorationNotFoundException("No se encontró el libro con el título y autor proporcionados.");
     }
-    throw new ValorationNotFoundException("No se encontró el libro con el título y autor proporcionados.");
-}
-
 
     public void addBook(Libro libro) {
         libros.add(libro);

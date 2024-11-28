@@ -4,8 +4,9 @@
  */
 package com.valorationService.facadeInterfaces;
 
+import entidades.ReseñaLibro;
 import entidades.Valoration;
 
 public interface IValorateFCD {
-    Valoration getValoration(String title, String author) throws Exception;
+    ReseñaLibro getValoration(String title, String author) throws Exception;
 }

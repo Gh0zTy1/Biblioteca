@@ -14,7 +14,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-         frmInicioSesion nuevoFrame = new frmInicioSesion(); // Reemplaza con tu clase de frame
+         frmInicioSesion nuevoFrame = new frmInicioSesion(); 
             nuevoFrame.setVisible(true);
            
     }

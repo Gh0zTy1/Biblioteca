@@ -5,8 +5,6 @@
 package Presentacion;
 
 import entidades.Libro;
-import idao.ILibroDAO;
-import javax.swing.JOptionPane;
 
 /**
  *

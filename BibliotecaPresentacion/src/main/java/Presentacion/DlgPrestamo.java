@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -115,6 +116,65 @@ public class DlgPrestamo extends javax.swing.JDialog {
     setLocation( (frameSize.width - dlgSize.width) / 2 + loc.x,
     (frameSize.height - dlgSize.height) / 2 + loc.y);
     } 
+    
+    
+    // Método para devolver el libro y agregar una valoración
+public void devolverLibro() {
+    if (prestamo.getFechaDevolucion() == null) {
+        prestamo.setFechaDevolucion(new Date());  // Marca la fecha de devolución
+        mostrarFormularioValoracion();  // Muestra el cuadro de valoración
+    }
+}
+
+// Método para mostrar el formulario de valoración
+private void mostrarFormularioValoracion() {
+    // Aquí podrías mostrar un cuadro de diálogo o formulario
+    // que permita al usuario ingresar una valoración
+    int valoracionUsuario = pedirValoracion(); // Método ficticio para obtener la valoración
+    String comentarioUsuario = pedirComentario(); // Método ficticio para obtener el comentario
+
+    prestamo.setValoracion(valoracionUsuario);  // Guarda la valoración
+    prestamo.setComentario(comentarioUsuario);  // Guarda el comentario
+}
+
+
+public int pedirValoracion() {
+        // Pedir al usuario que seleccione una valoración entre 1 y 5
+        String[] opciones = {"1", "2", "3", "4", "5"};
+        String input = (String) JOptionPane.showInputDialog(
+            null,  // Ventana padre
+            "Seleccione una valoración (1 a 5)",  // Mensaje
+            "Valoración del libro",  // Título de la ventana
+            JOptionPane.QUESTION_MESSAGE,  // Tipo de mensaje
+            null,  // Icono personalizado (usamos null para que no tenga uno)
+            opciones,  // Opciones disponibles para el usuario
+            opciones[0]  // Valor por defecto (opción 1)
+        );
+
+        // Convertir la selección a un número entero
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            // Si el usuario no selecciona una opción válida, retornar 0 o un valor predeterminado
+            return 0;
+        }
+    }
+
+    // Método para pedir un comentario (comentario de texto libre)
+    public String pedirComentario() {
+        // Pedir al usuario que ingrese un comentario
+        String comentario = JOptionPane.showInputDialog(
+            null,  // Ventana padre
+            "Escribe un comentario sobre el libro",  // Mensaje
+            "Comentario",  // Título de la ventana
+            JOptionPane.QUESTION_MESSAGE  // Tipo de mensaje
+        );
+
+        return comentario != null ? comentario : "";  // Retorna el comentario o una cadena vacía si es nulo
+    }
+
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
