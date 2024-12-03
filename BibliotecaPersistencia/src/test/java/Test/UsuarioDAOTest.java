@@ -2,17 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package CarlosTest;
+package Test;
 
-import daos.UsuarioDAO;
 import entidades.Usuario;
-import idao.IUsuarioDAO;
+import Dao.UsuarioDAO;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
+import Interfaces.IUsuarioDAO;
 
 
 /**
@@ -25,7 +25,7 @@ public class UsuarioDAOTest {
 
     @Before
     public void setUp() {
-        usuarioDAO = IUsuarioDAO.getInstancia();
+        usuarioDAO = UsuarioDAO.getInstancia();
         usuarioDAO.buscarTodos().forEach(usuario -> usuarioDAO.eliminar(usuario.getId()));
         usuarioEjemplo = new Usuario("U001", "Juan Pérez", "juan@email.com");
     }

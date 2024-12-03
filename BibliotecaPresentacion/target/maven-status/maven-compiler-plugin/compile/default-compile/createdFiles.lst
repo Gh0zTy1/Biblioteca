@@ -8,6 +8,7 @@ Presentacion\DlgUsuario$1.class
 Control\Tabla.class
 Presentacion\FrmBiblioteca$3.class
 Presentacion\DlgPrestamo$5.class
+Presentacion\DlgValoracion$1.class
 Presentacion\FrmBiblioteca$10.class
 Presentacion\FrmBiblioteca$13.class
 Presentacion\FrmBiblioteca$7.class
@@ -21,8 +22,10 @@ Presentacion\DlgUsuario$4.class
 Presentacion\DlgPrestamo$4.class
 Presentacion\FrmBiblioteca$11.class
 Control\ControlUsuarios.class
+Presentacion\FrmBiblioteca$16.class
 Presentacion\DlgUsuario.class
 Presentacion\Main.class
+Presentacion\DlgValoracion.class
 Presentacion\FrmBiblioteca$6.class
 Presentacion\DlgLibro$1.class
 Presentacion\DlgPrestamo$1.class
@@ -35,6 +38,7 @@ Presentacion\FrmBiblioteca$12.class
 Presentacion\frmInicioSesion.class
 Presentacion\FrmBiblioteca$1.class
 Presentacion\frmInicioSesion$1.class
+Presentacion\DlgValoracion$2.class
 Presentacion\FrmBiblioteca$4.class
 Presentacion\DlgLibro$3.class
 Presentacion\FrmBiblioteca$9.class

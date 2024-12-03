@@ -4,58 +4,49 @@
  */
 package entidades;
 
-/**
- *
- * @author caarl
- */
+import Dao.ServicioEvaluacionLibrosDAO;
+import Excepciones.ServicioNoDisponibleException;
+import Interfaces.IServicioEvaluacionLibros;
+
 public class Libro {
-    private int id;
+    private String isbn;
     private String titulo;
     private String autor;
-    private boolean disponible;
-    private ReseñaLibro reseña;
+    private double valoracion;
+    private String reseña;
+    private Boolean disponible;
 
-    public Libro(String titulo, String autor, int id) {
-        this.id = id;
+    // Constructor
+    public Libro(String isbn, String titulo, String autor) {
+        this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
-        this.reseña = reseña;
-    }
-
-    
-    
-    
-
-    public Libro(int id, String titulo, String autor) {
-        this.id = id;
-        this.titulo = titulo;
-        this.autor = autor;
+        this.valoracion = 0.0;  // Valoración inicializada a 0.0
+        this.reseña = "Sin descripción disponible";  // Reseña inicializada con un valor predeterminado
         this.disponible = true;
     }
 
-    public Libro(String titulo, String autor) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.disponible = true;
-    }
-
-    public Libro(int id) {
-        this.id = id;
+    public Libro(String isbn) {
+        this.isbn = isbn;
         this.disponible = true;
     }
     
-    
-    
 
-    public Libro() {
+    public Boolean getDisponible() {
+        return disponible;
     }
 
-    public int getId() {
-        return id;
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    // Getters y setters
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitulo() {
@@ -74,27 +65,19 @@ public class Libro {
         this.autor = autor;
     }
 
-    public boolean isDisponible() {
-        return disponible;
+    public double getValoracion() {
+        return valoracion;
     }
 
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public void setValoracion(double valoracion) {
+        this.valoracion = valoracion;
     }
 
-    public ReseñaLibro getReseña() {
+    public String getReseña() {
         return reseña;
     }
 
-    public void setReseña(ReseñaLibro reseña) {
+    public void setReseña(String reseña) {
         this.reseña = reseña;
     }
-
-    @Override
-    public String toString() {
-        return titulo;
-    }
-    
-    
-    
 }

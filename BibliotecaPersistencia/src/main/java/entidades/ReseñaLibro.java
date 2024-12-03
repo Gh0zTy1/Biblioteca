@@ -9,35 +9,35 @@ package entidades;
  * @author caarl
  */
 public class ReseñaLibro {
-    private double calificacion;
-    private String reseña;
+    private double valoracion; // Ejemplo: 4.5
+    private String comentario; // Ejemplo: "Un libro muy interesante."
 
-    public ReseñaLibro() {
+    // Constructor
+    public ReseñaLibro(double valoracion, String comentario) {
+        this.valoracion = valoracion;
+        this.comentario = comentario;
     }
 
-    
-    
-    public ReseñaLibro(double calificacion, String reseña) {
-        this.calificacion = calificacion;
-        this.reseña = reseña;
+    // Getters y Setters
+    public double getValoracion() {
+        return valoracion;
     }
 
-    public double getCalificacion() {
-        return calificacion;
+    public void setValoracion(double valoracion) {
+        this.valoracion = valoracion;
     }
 
-    public void setCalificacion(double calificacion) {
-        this.calificacion = calificacion;
+    public String getComentario() {
+        return comentario;
     }
 
-    public String getReseña() {
-        return reseña;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
-    public void setReseña(String reseña) {
-        this.reseña = reseña;
+    @Override
+    public String toString() {
+        return String.format("Valoración: %.1f, Reseña: %s", valoracion, comentario);
     }
-    
-    
-    
 }
+

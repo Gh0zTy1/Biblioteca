@@ -9,9 +9,10 @@ import Presentacion.DlgPrestamo;
 import entidades.Libro;
 import entidades.Prestamo;
 import entidades.Usuario;
-import idao.ILibroDAO;
-import idao.IPrestamoDAO;
-import idao.IUsuarioDAO;
+import Dao.LibroDAO;
+import Dao.PrestamoDAO;
+import Dao.ServicioEvaluacionLibrosDAO;
+import Dao.UsuarioDAO;
 
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -25,12 +26,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Ilian Fernando Gastelum Romo
  */
 public class Control {
-    ILibroDAO libroDAO; // Usa la instancia 
-    IPrestamoDAO prestamoDAO;
-    IUsuarioDAO usuarioDAO;
+    LibroDAO libroDAO; // Usa la instancia 
+    PrestamoDAO prestamoDAO;
+    UsuarioDAO usuarioDAO;
+    ServicioEvaluacionLibrosDAO servicioEvaluacion;
     // Usa la instancia únicaúnica
     private String nombresColumnasTablaLibros[] = {"ID", "Titulo", "Autor",
-        "Disponibilidad"}; 
+        "Disponibilidad","Valoracion","Reseña"}; 
     private String nombresColumnasTablaPrestamosLibros[] = {"Usuario", "Libro", "Fecha"};
     private String nombresColumnasTablaInventarioLibros[] = {"Libro", 
         "Disponibilidad",}; 
@@ -38,9 +40,10 @@ public class Control {
     * Constructor.
     */
     public Control() {
-        this.libroDAO = ILibroDAO.getInstancia();
-        this.usuarioDAO = IUsuarioDAO.getInstancia();
-        this.prestamoDAO = IPrestamoDAO.getInstancia();
+        this.servicioEvaluacion = new ServicioEvaluacionLibrosDAO();
+        this.libroDAO = LibroDAO.getInstancia(servicioEvaluacion);
+        this.usuarioDAO = UsuarioDAO.getInstancia();
+        this.prestamoDAO = PrestamoDAO.getInstancia();
         
         
     } 
@@ -90,7 +93,7 @@ public class Control {
                 Prestamo prestamos = listaInventarioLibros.get(i);
                 // Almacena sus atributos en la fila del arreglo
                 tabla[i][0] = prestamos.getLibro();
-                tabla[i][2] = prestamos.getLibro().isDisponible();
+                tabla[i][2] = prestamos.getLibro().getDisponible();
             }
             return new DefaultTableModel(tabla, nombresColumnasTablaInventarioLibros);
         }
@@ -111,10 +114,12 @@ public class Control {
             for (int i = 0; i < listaLibros.size(); i++) {
                 Libro libro = listaLibros.get(i);
                 // Almacena sus atributos en la fila del arreglo
-                tabla[i][0] = libro.getId();
+                tabla[i][0] = libro.getIsbn();
                 tabla[i][1] = libro.getTitulo();
                 tabla[i][2] = libro.getAutor();
-                tabla[i][3] = libro.isDisponible();
+                tabla[i][3] = libro.getDisponible();
+                tabla[i][4] = libro.getValoracion();
+                tabla[i][5] = libro.getReseña();
             }
             return new DefaultTableModel(tabla, nombresColumnasTablaLibros);
         }
@@ -154,10 +159,10 @@ public class Control {
         // Si el usuario presiono el boton Cancelar
         if(ID == null) return false;
         // Crea un objeto Libro con solo la isbn
-        libro = new Libro(Integer.parseInt(ID));
+        libro = new Libro(ID);
         try {
             // Obten el libro del catalogo de libros
-            bLibro = libroDAO.buscarPorId(Integer.parseInt(ID));
+            bLibro = libroDAO.buscarPorId(ID);
 
         } 
         catch (Exception e) {
@@ -181,7 +186,7 @@ public class Control {
         // Si el usuario presiono el boton Cancelar
         if (respuesta.substring(0).equals("Cancelar")) return false;
         try {
-            libroDAO.guardar(libro);
+            libroDAO.agregarLibro(libro);
         }
         catch(Exception e) {
             // Si ocurrio un error al escribir al catalogo de libros,
@@ -207,9 +212,9 @@ public class Control {
         "Eliminar libro",
         JOptionPane.QUESTION_MESSAGE);
         if(ID == null) return false;
-        libro = new Libro(Integer.parseInt(ID));
+        libro = new Libro(ID);
         try {
-            libro = libroDAO.buscarPorId(Integer.parseInt(ID));
+            libro = libroDAO.buscarPorId(ID);
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
@@ -226,7 +231,7 @@ public class Control {
         2, respuesta);
         if(respuesta.substring(0).equals("Cancelar")) return false;
         try {
-            libroDAO.eliminar(Integer.parseInt(ID));
+            libroDAO.eliminar(ID);
         }
         catch(Exception e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
@@ -252,10 +257,10 @@ public class Control {
         // Si el usuario presiono el boton Cancelar
         if(ID == null) return false;
         // Crea un objeto Libro con solo la isbn
-        libro = new Libro(Integer.parseInt(ID)); 
+        libro = new Libro(ID); 
         try {
             // Obten el libro del catalogo de libros
-            libro = libroDAO.buscarPorId(Integer.parseInt(ID));
+            libro = libroDAO.buscarPorId(ID);
         }
         catch (Exception e) {
             // Si ocurrio un error al leer del catalogo de libros,
@@ -277,7 +282,7 @@ public class Control {
         if (respuesta.substring(0).equals("Cancelar")) return false;
         // Actualiza el libro del catalogo de libros
         try {
-            libroDAO.actualizar(libro);
+            libroDAO.actualizarLibro(libro);
         }
         catch(Exception e) {
             // Si ocurrio un error al escribir al catalogo de libros,
@@ -346,7 +351,7 @@ public class Control {
         try {
             // Obtiene la lista de libros
             
-            listaLibros = libroDAO.buscarPorIdLista(Integer.parseInt(id));
+            listaLibros = libroDAO.buscarPorIdLista(id);
         }
         catch (Exception e) {
             // Si ocurrio un error al obtener la lista de la base de datos,
@@ -389,7 +394,7 @@ public class Control {
         Libro libro;
         String id = JOptionPane.showInputDialog(frame, "id del libro: ",
         "Prestamos",JOptionPane.QUESTION_MESSAGE); 
-        libro = new Libro(Integer.parseInt(id));
+        libro = new Libro(id);
         try {
             listaPrestamosLibro = prestamoDAO.consultarPrestamos(libro);
         }

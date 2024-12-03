@@ -44,7 +44,7 @@ public class DlgLibro extends javax.swing.JDialog {
         }
 
         // Despliega la ISBN 
-        campoTextoIsbn.setText(String.valueOf(libro.getId()));
+        campoTextoIsbn.setText(String.valueOf(libro.getIsbn()));
 
         // Si la operación es de actualizar, eliminar o desplegar,
         if((operacion == 2) ||

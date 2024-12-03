@@ -9,7 +9,9 @@ package Presentacion;
 import Control.Control;
 import Control.ControlUsuarios;
 import Control.Tabla;
-import idao.ILibroDAO;
+import Dao.LibroDAO;
+import Dao.ServicioEvaluacionLibrosDAO;
+import Interfaces.IServicioEvaluacionLibros;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -82,6 +84,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         opcionMenuConsultaUsuarios = new javax.swing.JMenuItem();
         menuConsultaPrestamosLibros = new javax.swing.JMenu();
         opcionMenuConsultaPrestamosLibros = new javax.swing.JMenuItem();
+        opcionMenuConsultarValoraciones = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de Biblioteca");
@@ -246,6 +249,14 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
         menuConsultas.add(menuConsultaPrestamosLibros);
 
+        opcionMenuConsultarValoraciones.setText("Valoraciones");
+        opcionMenuConsultarValoraciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuConsultarValoracionesActionPerformed(evt);
+            }
+        });
+        menuConsultas.add(opcionMenuConsultarValoraciones);
+
         menuBar.add(menuConsultas);
 
         setJMenuBar(menuBar);
@@ -370,7 +381,8 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     */
     private void opcionMenuConsultaLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosActionPerformed
         // Obtiene la lista de libros
-        ILibroDAO iLibroDao = ILibroDAO.getInstancia(); // Usa la instancia única
+        ServicioEvaluacionLibrosDAO servicioEvaluacion = new ServicioEvaluacionLibrosDAO();
+        LibroDAO iLibroDao = LibroDAO.getInstancia(servicioEvaluacion); // Usa la instancia única
         Tabla tablaLibros = control.getTablaLibros(this);
         // Despliega la lista de libros
         if (tablaLibros != null) {
@@ -427,6 +439,10 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_opcionMenuSalirActionPerformed
 
+    private void opcionMenuConsultarValoracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultarValoracionesActionPerformed
+        
+    }//GEN-LAST:event_opcionMenuConsultarValoracionesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -454,6 +470,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     private javax.swing.JMenuItem opcionMenuConsultaLibrosTitulo;
     private javax.swing.JMenuItem opcionMenuConsultaPrestamosLibros;
     private javax.swing.JMenuItem opcionMenuConsultaUsuarios;
+    private javax.swing.JMenuItem opcionMenuConsultarValoraciones;
     private javax.swing.JMenuItem opcionMenuDevolverLibro;
     private javax.swing.JMenuItem opcionMenuEliminarLibro;
     private javax.swing.JMenuItem opcionMenuEliminarUsuario;

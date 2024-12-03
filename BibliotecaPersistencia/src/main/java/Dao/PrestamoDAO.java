@@ -2,29 +2,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package idao;
+package Dao;
 
-import daos.PrestamoDAO;
 import entidades.Libro;
 import entidades.Prestamo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import Interfaces.IPrestamoDAO;
 
 /**
  *
  * @author gaspa
  */
-public class IPrestamoDAO implements PrestamoDAO{
+public class PrestamoDAO implements IPrestamoDAO{
     private List<Prestamo> prestamos;
-    private static IPrestamoDAO instancia; 
-    public static IPrestamoDAO getInstancia() {
+    private static PrestamoDAO instancia; 
+    public static PrestamoDAO getInstancia() {
         if (instancia == null) {
-            instancia = new IPrestamoDAO();
+            instancia = new PrestamoDAO();
         }
         return instancia;
     }
-    private IPrestamoDAO(){
+    private PrestamoDAO(){
         prestamos = new ArrayList<>();
     }
     
@@ -86,7 +86,7 @@ public Prestamo obten(Prestamo prestamo) {
     
     public List<Prestamo> buscarPrestamosDeLibrosPrestados() {
     return prestamos.stream()
-                    .filter(prestamo -> prestamo.getLibro() != null && !prestamo.getLibro().isDisponible())
+                    .filter(prestamo -> prestamo.getLibro() != null && !prestamo.getLibro().getDisponible())
                     .collect(Collectors.toList());
     }
 

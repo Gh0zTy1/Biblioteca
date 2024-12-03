@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package CarlosTest;
+package Test;
 
 import entidades.Libro;
 import entidades.Prestamo;
 import entidades.Usuario;
-import idao.IPrestamoDAO;
+import Dao.PrestamoDAO;
 
 import static org.junit.Assert.*;
 import java.util.Date;
@@ -19,21 +19,21 @@ import org.junit.Test;
  * Pruebas unitarias para la implementación de IPrestamoDAO.
  */
 public class PrestamoDAOTest {
-    private IPrestamoDAO prestamoDAO;
+    private PrestamoDAO prestamoDAO;
     private Usuario usuarioEjemplo;
     private Libro libroEjemplo;
 
     @Before
     public void setUp() {
-        prestamoDAO = IPrestamoDAO.getInstancia(); // Obtener la instancia del Singleton
+        prestamoDAO =  PrestamoDAO.getInstancia(); // Obtener la instancia del Singleton
         usuarioEjemplo = new Usuario("U001", "Juan Pérez", "juan@email.com");
-        libroEjemplo = new Libro(1, "Don Quijote", "Miguel de Cervantes");
+        libroEjemplo = new Libro("1", "Don Quijote", "Miguel de Cervantes");
         libroEjemplo.setDisponible(true);
 
         // Limpia la lista de préstamos antes de cada prueba
         prestamoDAO.listarPrestamos().clear();
     }
-
+    
     @Test
     public void testRegistrarPrestamo() throws Exception {
         Prestamo prestamo = new Prestamo(usuarioEjemplo, libroEjemplo, new Date(), null);
@@ -42,7 +42,7 @@ public class PrestamoDAOTest {
 
         List<Prestamo> prestamos = prestamoDAO.listarPrestamos();
         assertEquals("Debe haber un préstamo registrado", 1, prestamos.size());
-        assertFalse("El libro debe marcarse como no disponible", libroEjemplo.isDisponible());
+        assertFalse("El libro debe marcarse como no disponible", libroEjemplo.getDisponible());
     }
 
     @Test(expected = Exception.class)
@@ -57,21 +57,21 @@ public class PrestamoDAOTest {
     @Test
 public void testDevolverPrestamo() throws Exception {
     // Configuración de los objetos necesarios para el test
-    Libro libro = new Libro("Don Quijote", "Miguel de Cervantes", 12345);
+    Libro libro = new Libro("Don Quijote", "Miguel de Cervantes", "12345");
     Usuario usuario = new Usuario("Juan Pérez", "1234");
     Prestamo prestamo = new Prestamo(usuario, libro, new Date(), null);
     
     // Registrar el préstamo
-    IPrestamoDAO.getInstancia().registrarPrestamo(prestamo);
+    PrestamoDAO.getInstancia().registrarPrestamo(prestamo);
 
     // Verificar que el libro esté marcado como no disponible
-    assertFalse(libro.isDisponible());
+    assertFalse(libro.getDisponible());
 
     // Devolver el préstamo
-    IPrestamoDAO.getInstancia().devolverPrestamo(prestamo);
+    PrestamoDAO.getInstancia().devolverPrestamo(prestamo);
     
     // Verificar que el libro esté ahora disponible
-    assertTrue(libro.isDisponible());
+    assertTrue(libro.getDisponible());
 }
 
 
@@ -100,7 +100,7 @@ public void testDevolverPrestamo() throws Exception {
     @Test
     public void testListarPrestamos() throws Exception {
         Prestamo prestamo1 = new Prestamo(usuarioEjemplo, libroEjemplo, new Date(), null);
-        Libro otroLibro = new Libro(2, "Cien años de soledad", "Gabriel García Márquez");
+        Libro otroLibro = new Libro("2", "Cien años de soledad", "Gabriel García Márquez");
         otroLibro.setDisponible(true);
         Prestamo prestamo2 = new Prestamo(new Usuario("U002", "Ana López", "ana@email.com"), otroLibro, new Date(), null);
 

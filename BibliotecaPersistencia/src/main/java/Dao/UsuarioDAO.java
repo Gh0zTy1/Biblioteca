@@ -2,28 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package idao;
+package Dao;
 
-import daos.UsuarioDAO;
 import entidades.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import Interfaces.IUsuarioDAO;
 
 /**
  *
  * @author caarl
  */
-public class IUsuarioDAO implements UsuarioDAO {
-    private static IUsuarioDAO instancia; 
+public class UsuarioDAO implements IUsuarioDAO {
+    private static UsuarioDAO instancia; 
     private List<Usuario> usuarios;
     
-    private IUsuarioDAO() {
+    private UsuarioDAO() {
         usuarios = new ArrayList<>();
     }
     
-    public static IUsuarioDAO getInstancia() {
+    public static UsuarioDAO getInstancia() {
         if (instancia == null) {
-            instancia = new IUsuarioDAO();
+            instancia = new UsuarioDAO();
         }
         return instancia;
     }

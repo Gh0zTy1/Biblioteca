@@ -7,7 +7,7 @@ package Control;
 
 import Presentacion.DlgUsuario;
 import entidades.Usuario;
-import idao.IUsuarioDAO;
+import Dao.UsuarioDAO;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
@@ -21,14 +21,14 @@ import javax.swing.JOptionPane;
  * @author CarlosDamian
  */
 public class ControlUsuarios {
-    private IUsuarioDAO usuarioDAO;
+    private UsuarioDAO usuarioDAO;
     private String nombresColumnasTablaUsuarios[] = {"ID", "Nombre", "Correo"};
 
     /**
      * Constructor.
      */
     public ControlUsuarios() {
-        this.usuarioDAO = IUsuarioDAO.getInstancia();
+        this.usuarioDAO = UsuarioDAO.getInstancia();
     }
 
     /**
